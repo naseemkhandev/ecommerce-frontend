@@ -46,11 +46,10 @@ const ScrollToTop = () => {
   };
 
   return (
-    <div className="overflow-hidden">
+    <div onClick={scrollTop} className="overflow-hidden">
       <button
         aria-label="arrow"
         className={`fixed bottom-6 ss:bottom-10 z-30 -right-full shadow-2xl shadow-black bg-orange dark:bg-orange hover:bg-[#d93237] dark:hover:bg-[#d93237] active:p-[.45rem] p-3 rounded-full`}
-        onClick={scrollTop}
         ref={arrow}
       >
         <BsArrowUp className="text-xl active:text-[1.2rem] text-white dark:text-white" />

@@ -29,23 +29,27 @@ const Navbar = () => {
   const navbar = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (navbar.current) {
-        if (window.pageYOffset > 80) {
-          navbar.current.classList.add("bg-white");
-          navbar.current.classList.add("shadow-lg");
-        } else {
-          navbar.current.classList.remove("bg-white");
-          navbar.current.classList.remove("shadow-lg");
+    if (typeof window !== "undefined") {
+      const handleScroll = () => {
+        if (navbar.current) {
+          if (window.scrollY > 80) {
+            navbar.current.classList.add("bg-white");
+            navbar.current.classList.add("shadow-lg");
+          } else {
+            navbar.current.classList.remove("bg-white");
+            navbar.current.classList.remove("shadow-lg");
+          }
         }
-      }
-    };
+      };
 
-    window.addEventListener("scroll", handleScroll);
+      // Attach the scroll event listener when the component mounts on the client.
+      window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+      // Remove the scroll event listener when the component unmounts.
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }
   }, [navbar]);
 
   const underline =
@@ -68,7 +72,7 @@ const Navbar = () => {
         </Link>
 
         <div
-          className={`flex md:items-center md:justify-center md:flex-row flex-col gap-4 lg:gap-10 flex-1 fixed md:relative md:right-0 top-0 w-full sm:w-80 md:w-auto h-screen md:h-auto px-10 pt-28 md:p-0 bg-white dark:bg-black md:bg-transparent md:dark:bg-transparent z-[80] transition-all duration-700 shadow-light-black/10 shadow-xl drop-shadow-2xl md:shadow-none md:drop-shadow-none ${
+          className={`flex md:items-center md:justify-center md:flex-row flex-col gap-4 lg:gap-10 flex-1 fixed md:relative md:right-0 top-0 w-full sm:w-80 md:w-auto h-screen md:h-auto px-10 pt-36 md:p-0 bg-white dark:bg-black md:bg-transparent md:dark:bg-transparent z-[80] transition-all duration-700 shadow-light-black/10 shadow-xl drop-shadow-2xl md:shadow-none md:drop-shadow-none ${
             showNavbar ? "right-0" : "-right-[150%]"
           }`}
         >

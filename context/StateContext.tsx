@@ -45,8 +45,8 @@ export const StateContext = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const [showNavbar, setShowNavbar] = useState(false);
-  const [showCart, setShowCart] = useState(false);
+  const [showNavbar, setShowNavbar] = useState<boolean>(false);
+  const [showCart, setShowCart] = useState<boolean>(false);
   const [cartItems, setCartItems] = useState<Product[]>(
     getLocalStorage("cartItems")
   );
@@ -144,8 +144,11 @@ export const StateContext = ({ children }: { children: React.ReactNode }) => {
         showCart,
         setShowCart,
         cartItems,
+        setCartItems,
         totalQuantities,
+        setTotalQuantities,
         totalPrice,
+        setTotalPrice,
         qty,
         incQty,
         decQty,
