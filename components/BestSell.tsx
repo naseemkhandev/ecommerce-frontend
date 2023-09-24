@@ -15,7 +15,7 @@ interface bestSellProps {
 
 const BestSell = ({ productData }: bestSellProps) => {
   return (
-    <div className="flex flex-col gap-10 relative w-full 2xl:container px-5 md:px-10 2xl:mx-auto">
+    <div className="flex flex-col gap-10 relative w-full 2xl:container px-5 md:px-10 2xl:mx-auto ">
       <Title
         title="Best Sell"
         desc=" Lorem Ipsum is simply dummy text of the printing and typesetting

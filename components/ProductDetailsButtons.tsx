@@ -19,7 +19,6 @@ const ProductDetailsButtons = ({
       <button
         onClick={() => {
           onAdd(product, qty);
-          setShowCart(true);
         }}
       >
         <CommonButton

@@ -10,6 +10,8 @@ import CommonButton from "./CommonButton";
 import { useStateContext } from "@/context/StateContext";
 import { urlFor } from "@/lib/client";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import getStripe from "@/lib/getStripe";
+import toast from "react-hot-toast";
 
 const Cart = ({ showCart, setShowCart }: any) => {
   const {
@@ -19,6 +21,36 @@ const Cart = ({ showCart, setShowCart }: any) => {
     toggleCartItemQuantity,
     onRemove,
   }: any = useStateContext();
+
+  const handleCheckout = async () => {
+    const stripe: any = await getStripe();
+
+    const response = await fetch("http://localhost:3000/api/stripe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(cartItems),
+    });
+
+    if (!response.ok) {
+      console.error("Request failed with status:", response.status);
+      // Handle the error case here.
+      return;
+    }
+
+    const responseText = await response.text();
+    console.log("Response Text:", responseText);
+
+    try {
+      const data = JSON.parse(responseText);
+      toast.loading("Redirecting...");
+      stripe.redirectToCheckout({ sessionId: data.id });
+    } catch (error) {
+      console.error("Error parsing JSON:", error);
+      // Handle JSON parsing error.
+    }
+  };
 
   return (
     <div className="relative">
@@ -113,7 +145,7 @@ const Cart = ({ showCart, setShowCart }: any) => {
                     </h2>
                   </div>
 
-                  <button className="w-full" onClick={() => setShowCart(false)}>
+                  <button className="w-full" onClick={handleCheckout}>
                     <CommonButton
                       stock={true}
                       text="pay with stripe"
